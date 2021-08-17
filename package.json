@@ -1,0 +1,25 @@
+{
+  "name": "course4react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run lite",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lite": "lite-server"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UndersunIO/course4React.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UndersunIO/course4React/issues"
+  },
+  "homepage": "https://github.com/UndersunIO/course4React#readme",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
