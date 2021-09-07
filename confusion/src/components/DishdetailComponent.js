@@ -2,8 +2,12 @@ import React, {Component} from 'react';
 import {Card, CardImg, CardBody, CardText, CardTitle} from 'reactstrap';
 
 class DishDetail extends Component {
-
-
+    componentDidMount() {
+        console.log("Dishdetail componentDidMount invoked");
+    }
+    componentDidUpdate() {
+        console.log("Dishdetail componentDidUpdate invoked");
+    }
     renderDish(dish) {
         return(
             <Card>
@@ -26,7 +30,7 @@ class DishDetail extends Component {
             return (
                 <li>
                     <p>{comment.comment}</p>
-                    <p>-- {comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
+                    <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', day: 'numeric'}).format(new Date(Date(comment.date)))}</p>
                     <p></p>
                 </li>
             );
@@ -42,17 +46,18 @@ class DishDetail extends Component {
     }
 
     render() {
+        console.log("Dishdetail render invoked");
         if (this.props.dish != null) {
             return (
                 <div class="container">
-                <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        {this.renderDish(this.props.dish)}
+                    <div className="row">
+                        <div className="col-12 col-md-5 m-1">
+                            {this.renderDish(this.props.dish)}
+                        </div>
+                        <div className="col-12 col-md-5 m-1">
+                            {this.renderComments(this.props.dish.comments)}
+                        </div>
                     </div>
-                    <div className="col-12 col-md-5 m-1">
-                        {this.renderComments(this.props.dish.comments)}
-                    </div>
-                </div>
                 </div>
             );
         }
