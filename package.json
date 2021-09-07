@@ -7,7 +7,6 @@
     "start": "npm run lite",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lite": "lite-server"
-
   },
   "repository": {
     "type": "git",
@@ -20,6 +19,10 @@
   },
   "homepage": "https://github.com/UndersunIO/course4React#readme",
   "devDependencies": {
+    "bootstrap-social": "^5.1.1",
     "lite-server": "^2.6.1"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4"
   }
 }
