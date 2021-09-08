@@ -23,6 +23,7 @@
     "lite-server": "^2.6.1"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.4"
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "react-router-dom": "^4.2.2"
   }
 }
