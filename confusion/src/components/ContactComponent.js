@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 class Contact extends Component {
     constructor(props){
         super(props);
-
         this.state = {
             firstname: '',
             lastname: '',
@@ -66,7 +65,7 @@ class Contact extends Component {
             errors.lastname = 'Last Name should be >= 3 characters';
         else if (this.state.touched.lastname && lastname.length > 10)
             errors.lastname = 'Last Name should be <= 10 characters';
-            
+
         const reg = /^\d+$/;
         if (this.state.touched.telnum && !reg.test(telnum))
             errors.telnum = 'Tel. Number should contain only numbers';
