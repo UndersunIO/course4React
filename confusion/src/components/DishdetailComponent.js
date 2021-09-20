@@ -10,6 +10,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
     componentDidUpdate() {
         console.log("Dishdetail componentDidUpdate invoked");
     }*/
+
     const maxLength = (len) => (val) => !(val) || (val.length <= len);
     const minLength = (len) => (val) => val && (val.length >= len);
 
