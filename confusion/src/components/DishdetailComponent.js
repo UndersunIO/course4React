@@ -14,15 +14,58 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
     const maxLength = (len) => (val) => !(val) || (val.length <= len);
     const minLength = (len) => (val) => val && (val.length >= len);
 
+    function RenderDish({dish}){
+        return(
+            <div className="col-12 col-md-5 m-1">
+                 <Card>
+                    <CardImg top src={dish.image} alt={dish.name} />
+                    <CardBody>
+                        <CardTitle>{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            </div>
+        );
+    }
+
+    function RenderComments({comments, addComment, dishId}){
+        if (comments != null)
+            return(
+                <div className="col-12 col-md-5 m-1">
+                    <h4>Comments</h4>
+                    <ul className="list-unstyled">
+                        {comments.map((comment) => {
+                            return(
+                                <li key={comment.id}>
+                                <p>{comment.comment}</p>
+                                <p>-- {comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'})
+                                                .format(new Date(Date.parse(comment.date)))} </p>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    <CommentForm dishId={dishId} addComment={addComment}/>
+                </div>
+            );
+            else
+                return(
+                    <div></div>
+                );
+    }
+
+
     class CommentForm extends Component {
 
         constructor(props) {
             super(props);
-            this.state = {
-                isModalOpen: false
-            };
+            
             this.toggleModal = this.toggleModal.bind(this);
             this.handleSubmit = this.handleSubmit.bind(this);
+
+            this.state ={
+                isNavOpen: false,
+                isModalOpen: false
+            };
         }
     
         toggleModal() {
@@ -33,8 +76,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
     
         handleSubmit(values) {
             this.toggleModal();
-            console.log("Current State is: " + JSON.stringify(values));
-            alert("Current State is: " + JSON.stringify(values));
+            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
         }
     
         render() {
@@ -95,57 +137,13 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                             </LocalForm>
                         </ModalBody>
                     </Modal>
-                </React.Fragment>
+                    </React.Fragment>
             );
         }
     }
     
-    const Dish = (props) => {
-        const dish = props.dish
-        return (
-            <Card>
-                <CardImg top src={dish.image} alt={dish.name} />
-                <CardBody>
-                    <CardTitle>{dish.name}</CardTitle>
-                    <CardText>{dish.description}</CardText>
-                </CardBody>
-            </Card>
-        );
-    }
-    const Comment = (props) => {
-        const comment = props.comment
-        return (
-            <div key={comment.id}>
-                <li><p>{comment.comment}</p></li>
-                <li><p>-- {comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'})
-                                                .format(new Date(Date.parse(comment.date)))}
-                </p></li>
-            </div>
-        );
-    }
-    const Comments = (props) => {
-        const comments = props.comments
-        const list = comments.map((comment) => {
-            return <Comment comment={comment} />
-        });
-        return (
-            <div>
-                <h4>Comments</h4>
-                <ul className="list-unstyled">
-                    {list}
-                    <CommentForm />
-                </ul>
-            </div>
-        );
-    }
     const DishDetail = (props) => {
-        const dish = props.dish
-        let comments = []
-        if (dish) {
-           comments = props.comments
-        } else {
-            return <div></div>
-        }
+        if (props.dish != null)
         return (
             <div className="container">
                 <div className="row">
@@ -159,12 +157,10 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        {dish && <Dish dish={dish} />}
-                    </div>
-                    <div className="col-12 col-md-5 m-1">
-                        {comments && <Comments comments={comments}/>}
-                    </div>
+                    <RenderDish dish={props.dish} />
+                    <RenderComments comments={props.comments}
+                        addComment={props.addComment}
+                        dishId={props.dish.id} />
                 </div>
             </div>
         );
